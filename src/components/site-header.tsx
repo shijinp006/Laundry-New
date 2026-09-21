@@ -2,17 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { sectionX } from "@/lib/layout";
-import { Calendar, LogoMark } from "@/components/icons";
+import { Calendar, ChevronRight, HomeIcon, Leaf, LogoMark, PhoneIcon, Shirt } from "@/components/icons";
 import { PickupDateModal } from "@/components/pickup-date-modal";
 
 const navLinks = [
-  { href: "#top", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#how", label: "How It Works" },
-  { href: "#calculator", label: "Pricing" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#contact", label: "Contact" },
+  { href: "#top", label: "Home", icon: HomeIcon },
+  { href: "#about", label: "About", icon: Leaf },
+  { href: "#services", label: "Services", icon: Shirt },
+  { href: "#contact", label: "Contact", icon: PhoneIcon },
 ];
 
 export function SiteHeader() {
@@ -108,11 +105,10 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-          scrolled
-            ? "bg-navy/90 backdrop-blur-md border-b border-line/60 shadow-lg shadow-black/30 py-0"
-            : "bg-transparent backdrop-blur-sm border-b border-transparent py-1"
-        }`}
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled
+          ? "bg-white/90 backdrop-blur-md shadow-sm py-0"
+          : "bg-transparent py-2"
+          }`}
       >
         <div
           className={`flex h-16 items-center justify-between gap-2 sm:gap-4 lg:h-[72px] ${sectionX}`}
@@ -125,7 +121,8 @@ export function SiteHeader() {
           >
             <LogoMark className="size-8 sm:size-9 lg:size-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 text-brand" />
             <span className="flex flex-col leading-none">
-              <span className="text-xs font-bold tracking-tight sm:text-sm lg:text-base whitespace-nowrap transition-colors duration-300 group-hover:text-brand">
+              <span className={`text-xs font-bold tracking-tight sm:text-sm lg:text-base whitespace-nowrap transition-colors duration-300 ${scrolled ? "text-slate-900 group-hover:text-brand" : "text-white group-hover:text-brand"
+                }`}>
                 Wash Zone Laundry
               </span>
               <span className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-brand sm:mt-1 sm:text-[9px] sm:tracking-[0.18em] lg:text-[10px] whitespace-nowrap">
@@ -143,20 +140,20 @@ export function SiteHeader() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`group relative px-3 py-1.5 text-xs font-medium transition-all duration-300 rounded-full lg:text-sm ${
-                    isActive
-                      ? "text-brand font-semibold bg-brand/15 shadow-[0_0_18px_rgba(78,168,245,0.2)] scale-[1.03]"
-                      : "text-muted hover:text-ink hover:bg-white/[0.06] hover:scale-[1.02]"
-                  }`}
+                  className={`group relative px-3 py-1 text-xs font-semibold transition-colors duration-300 lg:text-sm ${isActive
+                    ? "text-brand"
+                    : scrolled
+                      ? "text-slate-600 hover:text-slate-900"
+                      : "text-slate-200 hover:text-white"
+                    }`}
                 >
                   <span>{link.label}</span>
-                  {/* Glowing underline indicator */}
+                  {/* Underline indicator */}
                   <span
-                    className={`absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-gradient-to-r from-brand via-brand-strong to-brand transition-all duration-300 ${
-                      isActive
-                        ? "scale-x-100 opacity-100 shadow-[0_0_8px_#4ea8f5]"
-                        : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-75"
-                    }`}
+                    className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-brand transition-all duration-300 ${isActive
+                      ? "scale-x-100 opacity-100"
+                      : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-75"
+                      }`}
                   />
                 </a>
               );
@@ -169,7 +166,7 @@ export function SiteHeader() {
               type="button"
               onClick={() => setModalOpen(true)}
               aria-label="Schedule pickup"
-              className="group relative overflow-hidden grid size-9 shrink-0 place-items-center rounded-xl bg-brand text-[#06213c] font-semibold transition-all duration-300 hover:bg-brand-strong hover:shadow-[0_0_20px_rgba(78,168,245,0.4)] hover:scale-[1.03] active:scale-95 sm:inline-flex sm:size-auto sm:gap-2 sm:px-4 sm:py-2 md:px-5 md:py-2.5"
+              className="group relative overflow-hidden grid size-9 shrink-0 place-items-center rounded-xl bg-brand text-white font-semibold transition-all duration-300 hover:bg-brand-strong hover:shadow-md hover:scale-[1.03] active:scale-95 sm:inline-flex sm:size-auto sm:gap-2 sm:px-4 sm:py-2 md:px-5 md:py-2.5"
             >
               <span className="relative z-10 hidden text-xs whitespace-nowrap sm:inline md:text-sm">
                 Schedule Pickup
@@ -185,23 +182,23 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="grid size-9 place-items-center rounded-lg border border-line shrink-0 transition-colors hover:border-brand lg:hidden"
+              className={`grid size-9 place-items-center rounded-lg border shrink-0 transition-colors lg:hidden ${scrolled
+                ? "border-slate-200 text-slate-700 hover:border-brand hover:text-brand"
+                : "border-white/25 text-white hover:border-white hover:bg-white/10"
+                }`}
             >
               <span className="relative block h-3 w-4">
                 <span
-                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-transform duration-300 ${
-                    open ? "top-1.5 rotate-45" : "top-0"
-                  }`}
+                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-transform duration-300 ${open ? "top-1.5 rotate-45" : "top-0"
+                    }`}
                 />
                 <span
-                  className={`absolute left-0 top-1.5 block h-0.5 w-4 bg-current transition-opacity duration-300 ${
-                    open ? "opacity-0" : "opacity-100"
-                  }`}
+                  className={`absolute left-0 top-1.5 block h-0.5 w-4 bg-current transition-opacity duration-300 ${open ? "opacity-0" : "opacity-100"
+                    }`}
                 />
                 <span
-                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-transform duration-300 ${
-                    open ? "top-1.5 -rotate-45" : "top-3"
-                  }`}
+                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-transform duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"
+                    }`}
                 />
               </span>
             </button>
@@ -212,21 +209,20 @@ export function SiteHeader() {
       {/* Full-Screen Mobile Navigation Modal Overlay */}
       <div
         id="mobile-nav"
-        className={`fixed inset-0 z-[100] flex flex-col justify-between bg-navy/98 backdrop-blur-2xl px-6 pb-8 pt-4 transition-all duration-300 ease-in-out lg:hidden ${
-          open
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 -translate-y-4 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-[100] flex flex-col justify-between bg-slate-50/98 backdrop-blur-2xl px-6 pb-8 pt-4 transition-all duration-300 ease-in-out lg:hidden ${open
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-4 pointer-events-none"
+          }`}
       >
         {/* Modal Top Header Bar */}
-        <div className="flex h-14 items-center justify-between border-b border-line/60 pb-3">
+        <div className="flex h-14 items-center justify-between border-b border-slate-200/80 pb-3">
           <a
             href="#top"
             onClick={(e) => handleNavClick(e, "#top")}
             className="flex items-center gap-2"
           >
             <LogoMark className="size-8 text-brand" />
-            <span className="text-sm font-bold tracking-tight text-white">
+            <span className="text-sm font-bold tracking-tight text-slate-900">
               Wash Zone Laundry
             </span>
           </a>
@@ -235,31 +231,32 @@ export function SiteHeader() {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
-            className="grid size-9 place-items-center rounded-xl border border-line text-ink transition-colors hover:border-brand hover:text-brand"
+            className="grid size-9 place-items-center rounded-xl border border-slate-200 text-slate-500 transition-colors hover:border-slate-300 hover:bg-slate-200/60 hover:text-slate-800"
           >
             <span className="text-lg font-bold leading-none">✕</span>
           </button>
         </div>
 
         {/* Modal Navigation Links List */}
-        <ul className="my-auto flex flex-col gap-2 overflow-y-auto py-4">
+        <ul className="mt-4 mb-auto flex flex-col gap-1 overflow-y-auto py-2">
           {navLinks.map((link) => {
+            const Icon = link.icon;
             const isActive = activeSection === link.href.replace("#", "");
             return (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-lg font-semibold transition-all duration-300 ${
-                    isActive
-                      ? "bg-brand/15 text-brand shadow-[0_0_20px_rgba(78,168,245,0.2)]"
-                      : "text-muted hover:bg-white/[0.05] hover:text-ink"
-                  }`}
+                  className={`flex items-center justify-between rounded-xl px-3 py-3.5 text-sm font-semibold transition-colors duration-200 ${isActive
+                    ? "bg-brand/10 text-brand font-bold"
+                    : "text-slate-900 hover:bg-slate-100/80"
+                    }`}
                 >
-                  <span>{link.label}</span>
-                  {isActive && (
-                    <span className="size-2.5 rounded-full bg-brand shadow-[0_0_10px_#4ea8f5]" />
-                  )}
+                  <span className="flex items-center gap-3.5">
+                    <Icon className={`size-5 shrink-0 ${isActive ? "text-brand" : "text-slate-800"}`} />
+                    <span>{link.label}</span>
+                  </span>
+                  <ChevronRight className={`size-4 shrink-0 ${isActive ? "text-brand" : "text-slate-800"}`} />
                 </a>
               </li>
             );
@@ -267,14 +264,14 @@ export function SiteHeader() {
         </ul>
 
         {/* Modal Bottom CTA */}
-        <div className="border-t border-line/60 pt-4 flex flex-col gap-3">
+        <div className="border-t border-slate-200/80 pt-4 flex flex-col gap-3 mt-auto">
           <button
             type="button"
             onClick={() => {
               setOpen(false);
               setModalOpen(true);
             }}
-            className="w-full rounded-xl bg-brand py-3.5 text-center text-sm font-bold text-[#06213c] shadow-lg shadow-brand/20 transition-all hover:bg-brand-strong active:scale-95"
+            className="w-full rounded-2xl bg-brand py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-strong active:scale-95"
           >
             Schedule Pickup Now
           </button>

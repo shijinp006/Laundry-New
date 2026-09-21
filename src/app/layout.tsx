@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Outfit, Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans, Geist_Mono, Russo_One } from "next/font/google";
 import { ScrollProvider } from "@/components/scroll-provider";
 import "./globals.css";
 
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const russoOne = Russo_One({
+  variable: "--font-russo",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -31,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${plusJakartaSans.variable} ${geistMono.variable} antialiased`}
+      className={`${outfit.variable} ${plusJakartaSans.variable} ${geistMono.variable} ${russoOne.variable} antialiased`}
     >
       <head>
         {/* AOS hides [data-aos] elements until its JS runs — reveal them if it never does. */}

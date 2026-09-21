@@ -1,152 +1,159 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { sectionX } from "@/lib/layout";
-import { Arrow, Calendar, Pin } from "@/components/icons";
-import { PickupDateModal } from "@/components/pickup-date-modal";
 
-const bubbles = [
-  { left: "6%", size: 10, delay: "0s" },
-  { left: "17%", size: 6, delay: "1.2s" },
-  { left: "29%", size: 13, delay: "2.4s" },
-  { left: "41%", size: 7, delay: "0.6s" },
-  { left: "54%", size: 11, delay: "3.1s" },
-  { left: "67%", size: 6, delay: "1.8s" },
-  { left: "79%", size: 12, delay: "0.3s" },
-  { left: "91%", size: 8, delay: "2.7s" },
-];
+const HERO_VIDEO_SRC = "/video/new%20video%20.MOV";
 
 export function Hero() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const defaultDate = tomorrow.toISOString().split("T")[0];
-  const [pickupDate, setPickupDate] = useState(defaultDate);
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoWrapRef = useRef<HTMLDivElement>(null);
+  const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const desktopVideoRef = useRef<HTMLVideoElement>(null);
+  const lineOneRef = useRef<HTMLSpanElement>(null);
+  const lineTwoRef = useRef<HTMLSpanElement>(null);
+  const lineThreeRef = useRef<HTMLSpanElement>(null);
+  const lineFourRef = useRef<HTMLSpanElement>(null);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setModalOpen(true);
-  };
+  // Lazy-load the hero video: only fetch it once the hero is about to enter
+  // the viewport, instead of blocking the initial page load.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVideoSrc(HERO_VIDEO_SRC);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!videoSrc) return;
+    for (const ref of [mobileVideoRef, desktopVideoRef]) {
+      const video = ref.current;
+      if (!video) continue;
+      video.load();
+      video.play().catch(() => { });
+    }
+  }, [videoSrc]);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // Cinematic curtain-reveal entrance for each headline line on load
+      const lineRefs = [lineOneRef, lineTwoRef, lineThreeRef, lineFourRef];
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      lineRefs.forEach((ref, index) => {
+        tl.fromTo(
+          ref.current,
+          { yPercent: 115, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 1.0 },
+          index === 0 ? undefined : "-=0.8",
+        );
+      });
+
+      // Scroll-linked parallax drift + zoom on the background video
+      gsap.to(videoWrapRef.current, {
+        yPercent: 18,
+        scale: 1.1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <>
-      <section
-        id="top"
-        className={`relative isolate overflow-hidden bg-navy pb-20 pt-10 md:pb-24 md:pt-14 lg:pb-32 lg:pt-20 ${sectionX}`}
-      >
-        {/* Full-bleed background video container for section */}
-        <div aria-hidden className="absolute inset-0 -z-20 overflow-hidden">
-          {/* Mobile Video (< lg) */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/video/hero-bg-poster.jpg"
-            className="size-full object-cover lg:hidden"
-          >
-            <source src="/video/hero-bg.mp4" type="video/mp4" />
-          </video>
+    <section
+      id="top"
+      ref={sectionRef}
+      className={`relative isolate flex min-h-screen flex-col justify-end overflow-hidden bg-slate-50 py-10 pb-20 lg:justify-center lg:pb-10 ${sectionX}`}
+    >
+      {/* Full-bleed background video container for section */}
+      <div ref={videoWrapRef} aria-hidden className="absolute inset-0 -z-20 overflow-hidden">
+        {/* Mobile Video (< lg) */}
+        <video
+          ref={mobileVideoRef}
+          muted
+          loop
+          playsInline
+          preload="none"
+          poster="/video/hero-bg-poster.jpg"
+          className="size-full object-cover lg:hidden"
+        >
+          {videoSrc && <source src={videoSrc} type="video/mp4" />}
+        </video>
 
-          {/* Desktop Background Video (>= lg) */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            className="hidden size-full object-cover lg:block"
-          >
-            <source src="/video/desktop%20bg%20.mp4" type="video/mp4" />
-          </video>
-        </div>
+        {/* Desktop Background Video (>= lg) */}
+        <video
+          ref={desktopVideoRef}
+          muted
+          loop
+          playsInline
+          preload="none"
+          poster="/video/hero-bg-poster.jpg"
+          className="hidden size-full object-cover lg:block"
+        >
+          {videoSrc && <source src={videoSrc} type="video/mp4" />}
+        </video>
+      </div>
 
-        {/* Backdrop Scrim / Overlay gradient to ensure text readability */}
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-gradient-to-r from-navy/95 via-navy/85 to-navy/50 lg:from-navy/90 lg:via-navy/75 lg:to-navy/40"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(78,168,245,0.16),transparent_70%)]"
-        />
+      {/* Backdrop Scrim / Overlay gradient to ensure text readability */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950/85 via-slate-950/65 to-slate-950/35 lg:from-slate-950/80 lg:via-slate-950/55 lg:to-slate-950/25"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(2,132,199,0.18),transparent_70%)]"
+      />
 
-        {/* Content container */}
-        <div className="relative z-10 max-w-2xl lg:max-w-3xl" data-aos="fade-right">
-          <h1 className="text-[2.1rem] font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-[3.4rem] xl:text-6xl">
-            Effortless Laundry &amp; Dry Cleaning{" "}
-            <span className="text-brand-strong">Delivered to Your Door</span>
-          </h1>
-
-          <p className="mt-5 max-w-prose text-sm leading-relaxed text-muted md:text-base lg:text-lg">
-            Premium eco-friendly wash, press &amp; fold. Free door-to-door pickup
-            &amp; delivery in 24 hours. Reclaim your weekend with crisp
-            Egyptian-cotton standards.
-          </p>
-
-          <form
-            onSubmit={handleSubmit}
-            className="mt-7 flex flex-col gap-2 rounded-2xl border border-line bg-white/[0.04] p-2 backdrop-blur-md sm:flex-row sm:items-center sm:rounded-full md:mt-8 max-w-2xl"
-          >
-            <label htmlFor="zip" className="sr-only">
-              ZIP or street address
-            </label>
-            <span className="flex flex-1 items-center gap-2 px-2.5">
-              <Pin className="size-4 shrink-0 text-brand" />
-              <input
-                id="zip"
-                name="zip"
-                type="text"
-                autoComplete="postal-code"
-                placeholder="Enter ZIP or address"
-                className="w-full bg-transparent py-2 text-xs text-ink placeholder:text-muted/70 focus:outline-none md:text-sm"
-              />
+      {/* Content container */}
+      <div className="relative z-10 max-w-2xl lg:max-w-3xl">
+        <h1 className="font-display text-[2.1rem] font-bold uppercase leading-[1.1] tracking-tight text-white md:text-5xl lg:text-[3.4rem] xl:text-6xl">
+          <span className="block overflow-hidden">
+            <span ref={lineOneRef} className="glass-text block">
+              Effortless Laundry
             </span>
-
-            <span className="hidden h-5 w-px bg-line/60 sm:block" />
-
-            <span className="flex items-center gap-2 px-2.5 py-1 sm:py-0">
-              <Calendar className="size-4 shrink-0 text-brand" />
-              <input
-                id="pickup-date"
-                name="pickupDate"
-                type="date"
-                value={pickupDate}
-                onChange={(e) => setPickupDate(e.target.value)}
-                className="bg-transparent text-xs text-ink outline-none md:text-sm cursor-pointer"
-                title="Pick Up Date"
-              />
+          </span>
+          <span className="block overflow-hidden">
+            <span ref={lineTwoRef} className="glass-text block">
+              &amp; Dry Cleaning
             </span>
-
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-5 py-2.5 text-xs font-semibold text-[#06213c] whitespace-nowrap transition-colors hover:bg-brand-strong md:px-6 md:text-sm shrink-0"
-            >
-              <span>Check Availability</span>
-              <Arrow className="size-4 shrink-0" />
-            </button>
-          </form>
-        </div>
-
-        {/* drifting bubbles */}
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24">
-          {bubbles.map((b, i) => (
-            <span
-              key={i}
-              className="animate-bubble absolute bottom-6 rounded-full bg-brand/20 ring-1 ring-brand/30"
-              style={{
-                left: b.left,
-                width: b.size,
-                height: b.size,
-                animationDelay: b.delay,
-              }}
-            />
-          ))}
-        </div>
-      </section>
-
-      <PickupDateModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-    </>
+          </span>
+          <span className="block overflow-hidden">
+            <span ref={lineThreeRef} className="glass-text-brand block">
+              Delivered to
+            </span>
+          </span>
+          <span className="block overflow-hidden">
+            <span ref={lineFourRef} className="glass-text-brand block">
+              Your Door
+            </span>
+          </span>
+        </h1>
+      </div>
+    </section>
   );
 }

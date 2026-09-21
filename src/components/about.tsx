@@ -52,7 +52,7 @@ export function About() {
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-line bg-card p-4 text-center md:p-5"
+                className="cinematic-card rounded-2xl border border-line bg-card p-4 text-center shadow-xs md:p-5"
               >
                 <dt className="sr-only">{stat.label}</dt>
                 <dd className="text-xl font-bold tracking-tight text-brand md:text-2xl">

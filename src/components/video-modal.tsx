@@ -39,22 +39,22 @@ export function VideoModal({ isOpen, onClose, videoId, title, description }: Vid
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-line bg-navy shadow-2xl"
+        className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-line/70 p-4 md:p-5">
+        <div className="flex items-start justify-between gap-4 border-b border-slate-100 p-4 md:p-5">
           <div>
-            <h3 id="video-modal-title" className="text-base font-semibold text-ink md:text-lg">
+            <h3 id="video-modal-title" className="text-base font-semibold text-slate-900 md:text-lg">
               {title}
             </h3>
             {description && (
-              <p className="mt-1 text-xs text-muted md:text-sm">{description}</p>
+              <p className="mt-1 text-xs text-slate-500 md:text-sm">{description}</p>
             )}
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="grid size-8 shrink-0 place-items-center rounded-full border border-line text-muted transition-colors hover:border-brand hover:text-ink"
+            className="grid size-8 shrink-0 place-items-center rounded-full border border-slate-200 text-slate-400 transition-colors hover:border-slate-300 hover:bg-slate-100 hover:text-slate-700"
             aria-label="Close video"
           >
             ✕

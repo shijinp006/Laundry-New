@@ -4,16 +4,16 @@ export function BookingCta() {
   return (
     <section
       id="book"
-      className={`relative isolate overflow-hidden border-t border-line/50 bg-navy pt-10 md:pt-12 lg:pt-14 pb-16 text-center md:pb-20 lg:pb-24 ${sectionX}`}
+      className={`relative isolate overflow-hidden border-t border-line/60 bg-band pt-10 md:pt-12 lg:pt-14 pb-16 text-center md:pb-20 lg:pb-24 ${sectionX}`}
     >
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_50%_0%,rgba(78,168,245,0.14),transparent_70%)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_50%_0%,rgba(2,132,199,0.08),transparent_70%)]"
       />
 
       <h2
         data-aos="fade-up"
-        className="text-2xl font-bold leading-tight tracking-tight md:text-3xl lg:text-4xl"
+        className="text-2xl font-bold leading-tight tracking-tight text-ink md:text-3xl lg:text-4xl"
       >
         Ready for Fresh Laundry Without Lifting a Finger?
       </h2>
@@ -33,13 +33,13 @@ export function BookingCta() {
       >
         <a
           href="#top"
-          className="rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-[#06213c] transition-colors hover:bg-brand-strong md:px-7 md:text-base"
+          className="rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-brand-strong md:px-7 md:text-base"
         >
           Claim $15 Off First Pickup
         </a>
         <a
           href="#services"
-          className="rounded-lg border border-line px-6 py-3 text-sm font-semibold transition-colors hover:border-brand hover:text-brand md:px-7 md:text-base"
+          className="rounded-lg border border-line bg-white px-6 py-3 text-sm font-semibold text-ink shadow-sm transition-colors hover:border-brand hover:text-brand md:px-7 md:text-base"
         >
           View Service Areas
         </a>

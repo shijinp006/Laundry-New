@@ -1,24 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
   /* surfaces */
-  --deep: #0a2440;        /* footer */
-  --navy: #0a2440;        /* hero, cta */
-  --band: #0a2440;        /* all sections outside hero */
-  --card: #0e2f52;        /* cards on background */
-  --card-deep: #081d33;   /* panels inside cards */
-  --line: #1c4a7d;
+  --deep: #0f172a;
+  /* footer dark slate */
+  --navy: #0f172a;
+  /* hero background */
+  --band: #f8fafc;
+  /* off-white section background */
+  --card: #ffffff;
+  /* crisp white card surface */
+  --card-deep: #f1f5f9;
+  /* light panel surface */
+  --line: #e2e8f0;
+  /* subtle light border */
 
   /* ink */
-  --ink: #f2f8ff;
-  --muted: #9fc0dd;
+  --ink: #0f172a;
+  /* dark headline text */
+  --muted: #475569;
+  /* dark readable slate body text */
 
   /* brand */
-  --brand: #4ea8f5;
-  --brand-strong: #7cc2ff;
-  --brand-soft: #16406d;
+  --brand: #0284c7;
+  /* vibrant ocean blue */
+  --brand-strong: #0369a1;
+  --brand-soft: #e0f2fe;
 }
 
 @theme inline {
@@ -62,9 +71,30 @@ body {
   font-family: var(--font-plus-jakarta), system-ui, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, .font-heading {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
   font-family: var(--font-outfit), var(--font-plus-jakarta), sans-serif;
   letter-spacing: -0.015em;
+}
+
+.font-display {
+  font-family: var(--font-russo), sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* ---- glassmorphic headline text --------------------------------------- */
+
+.glass-text {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.glass-text-brand {
+  color: rgba(124, 194, 255, 0.95);
 }
 
 /* ---- custom slim blue scrollbar -------------------------------------- */
@@ -154,9 +184,11 @@ h1, h2, h3, h4, h5, h6, .font-heading {
     transform: translateY(12px) scale(0.85);
     opacity: 0;
   }
+
   20% {
     opacity: 0.75;
   }
+
   100% {
     transform: translateY(-70px) scale(1.1);
     opacity: 0;
@@ -164,32 +196,42 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 @keyframes float-soft {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-12px);
   }
 }
 
 @keyframes rise-in {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(22px);
+    transform: scale(0.92) translateY(24px);
   }
-  to {
+
+  60% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1.01) translateY(-2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
   }
 }
 
 @keyframes pulse-dot {
+
   0%,
   100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.45;
     transform: scale(0.82);
@@ -205,7 +247,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 .animate-rise {
-  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-dot {
@@ -219,12 +261,15 @@ h1, h2, h3, h4, h5, h6, .font-heading {
     transform: translateY(30px) scale(0.7) rotate(0deg);
     opacity: 0;
   }
+
   25% {
     opacity: 0.85;
   }
+
   75% {
     opacity: 0.7;
   }
+
   100% {
     transform: translateY(-140px) scale(1.2) rotate(180deg);
     opacity: 0;
@@ -232,19 +277,25 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 @keyframes dress-float-wave {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) scale(1);
   }
+
   50% {
     transform: translateY(-12px) scale(1.015);
   }
 }
 
 @keyframes liquid-glow-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.35;
     filter: drop-shadow(0 0 10px #4ea8f5);
   }
+
   50% {
     opacity: 0.95;
     filter: drop-shadow(0 0 25px #7cc2ff);
@@ -266,10 +317,12 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 /* ---- photo treatment: slow zoom + scroll parallax -------------------- */
 
 @keyframes ken-burns {
+
   0%,
   100% {
     transform: scale(1.06) translate3d(0, 0, 0);
   }
+
   50% {
     transform: scale(1.16) translate3d(-1%, -1.5%, 0);
   }
@@ -291,6 +344,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -300,6 +354,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   0% {
     height: 100%;
   }
+
   100% {
     height: var(--liquid-rest, 22%);
   }
@@ -319,6 +374,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .animate-bubble,
   .animate-float,
   .animate-rise,

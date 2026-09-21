@@ -32,9 +32,9 @@ export function SiteFooter() {
       >
         <div className="col-span-2 lg:col-span-1">
           <div className="flex items-center gap-2.5">
-            <LogoMark className="size-9" />
+            <LogoMark className="size-9 text-brand" />
             <span className="flex flex-col leading-none">
-              <span className="text-sm font-bold tracking-tight md:text-base">
+              <span className="text-sm font-bold tracking-tight text-white md:text-base">
                 Wash Zone Laundry
               </span>
               <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-brand">
@@ -42,7 +42,7 @@ export function SiteFooter() {
               </span>
             </span>
           </div>
-          <p className="mt-4 max-w-prose text-xs leading-relaxed text-muted md:text-sm">
+          <p className="mt-4 max-w-prose text-xs leading-relaxed text-slate-300 md:text-sm">
             Elevating modern wardrobe wellness. Eco-friendly cleaning,
             professional fold quality, and zero-friction scheduling from your
             smartphone.
@@ -53,7 +53,7 @@ export function SiteFooter() {
                 <a
                   href="#"
                   aria-label={s.label}
-                  className="grid size-8 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-brand hover:text-brand"
+                  className="grid size-8 place-items-center rounded-lg border border-slate-700 text-slate-300 transition-colors hover:border-brand hover:text-brand"
                 >
                   <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden>
                     <path d={s.path} />
@@ -66,7 +66,7 @@ export function SiteFooter() {
 
         {columns.map((col) => (
           <div key={col.title}>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] md:text-sm">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm">
               {col.title}
             </h3>
             <ul className="mt-4 flex flex-col gap-2.5">
@@ -74,7 +74,7 @@ export function SiteFooter() {
                 <li key={link}>
                   <a
                     href="#"
-                    className="text-xs text-muted transition-colors hover:text-brand md:text-sm"
+                    className="text-xs text-slate-300 transition-colors hover:text-brand md:text-sm"
                   >
                     {link}
                   </a>
@@ -85,10 +85,10 @@ export function SiteFooter() {
         ))}
 
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-[0.14em] md:text-sm">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm">
             Service Hours
           </h3>
-          <ul className="mt-4 flex flex-col gap-2.5 text-xs text-muted md:text-sm">
+          <ul className="mt-4 flex flex-col gap-2.5 text-xs text-slate-300 md:text-sm">
             <li>Mon – Sat: 7am – 10pm</li>
             <li>Sunday: 8am – 8pm</li>
             <li className="pt-1">
@@ -100,12 +100,12 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mt-12 flex flex-col gap-3 border-t border-line/60 pt-6 md:flex-row md:items-center md:justify-between">
-        <p className="text-[11px] text-muted md:text-xs">
+      <div className="mt-12 flex flex-col gap-3 border-t border-slate-800 pt-6 md:flex-row md:items-center md:justify-between">
+        <p className="text-[11px] text-slate-400 md:text-xs">
           © {new Date().getFullYear()} Wash Zone Laundry Inc. All rights
           reserved. Pristine garment wellness.
         </p>
-        <p className="flex gap-5 text-[11px] text-muted md:text-xs">
+        <p className="flex gap-5 text-[11px] text-slate-400 md:text-xs">
           <a href="#" className="transition-colors hover:text-brand">
             Privacy Policy
           </a>
