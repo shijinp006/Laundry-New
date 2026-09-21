@@ -1,26 +1,348 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* surfaces */
+  --deep: #0a2440;        /* footer */
+  --navy: #0a2440;        /* hero, cta */
+  --band: #0a2440;        /* all sections outside hero */
+  --card: #0e2f52;        /* cards on background */
+  --card-deep: #081d33;   /* panels inside cards */
+  --line: #1c4a7d;
+
+  /* ink */
+  --ink: #f2f8ff;
+  --muted: #9fc0dd;
+
+  /* brand */
+  --brand: #4ea8f5;
+  --brand-strong: #7cc2ff;
+  --brand-soft: #16406d;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-deep: var(--deep);
+  --color-navy: var(--navy);
+  --color-band: var(--band);
+  --color-card: var(--card);
+  --color-card-deep: var(--card-deep);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --font-sans: var(--font-plus-jakarta), system-ui, sans-serif;
+  --font-heading: var(--font-outfit), var(--font-plus-jakarta), sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  /* AOS elements sit off-canvas (translateX) before they scroll into view;
+     without this they widen the page and leave a blank strip on narrow
+     viewports. `clip` (not `hidden`) because `hidden` makes html/body a
+     scroll container, which breaks `position: sticky` on descendants
+     (like the header) — `clip` blocks the same overflow without that
+     side effect. */
+  overflow-x: clip;
+}
+
+/* Buttons don't get a pointer cursor by default in every browser; every
+   interactive control on the site should read as clickable. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-outfit), var(--font-plus-jakarta), sans-serif;
+  letter-spacing: -0.015em;
+}
+
+/* ---- custom slim blue scrollbar -------------------------------------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand) var(--navy);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand);
+  border-radius: 9999px;
+  border: 2px solid var(--navy);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-strong);
+}
+
+/* ---- range sliders -------------------------------------------------- */
+
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  outline: none;
+  transition: background 0.15s linear;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--brand);
+  border: 3px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(78, 168, 245, 0.7);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s;
+}
+
+.range::-webkit-slider-thumb:hover,
+.range:active::-webkit-slider-thumb {
+  transform: scale(1.3);
+  background: var(--brand-strong);
+  box-shadow: 0 0 24px rgba(124, 194, 255, 0.95), 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+.range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--brand);
+  border: 3px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(78, 168, 245, 0.7);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s;
+}
+
+.range::-moz-range-thumb:hover {
+  transform: scale(1.3);
+  background: var(--brand-strong);
+  box-shadow: 0 0 24px rgba(124, 194, 255, 0.95), 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+.range:focus-visible {
+  box-shadow: 0 0 0 4px rgba(78, 168, 245, 0.45);
+}
+
+/* ---- hero motion ---------------------------------------------------- */
+
+@keyframes bubble-drift {
+  0% {
+    transform: translateY(12px) scale(0.85);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-70px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+.animate-bubble {
+  animation: bubble-drift 8s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+.animate-rise {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ---- live bubble motion & dress float -------------------------------- */
+
+@keyframes bubble-rise-float {
+  0% {
+    transform: translateY(30px) scale(0.7) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-140px) scale(1.2) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes dress-float-wave {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.015);
+  }
+}
+
+@keyframes liquid-glow-pulse {
+  0%, 100% {
+    opacity: 0.35;
+    filter: drop-shadow(0 0 10px #4ea8f5);
+  }
+  50% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 25px #7cc2ff);
+  }
+}
+
+.animate-bubble-rise {
+  animation: bubble-rise-float 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-dress-wave {
+  animation: dress-float-wave 6s ease-in-out infinite;
+}
+
+.animate-liquid-glow {
+  animation: liquid-glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* ---- photo treatment: slow zoom + scroll parallax -------------------- */
+
+@keyframes ken-burns {
+  0%,
+  100% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.16) translate3d(-1%, -1.5%, 0);
+  }
+}
+
+.animate-kenburns {
+  animation: ken-burns 18s ease-in-out infinite;
+}
+
+.parallax-layer {
+  transform: translateY(var(--parallax-y, 0px));
+  transition: transform 120ms linear;
+  will-change: transform;
+}
+
+/* ---- liquid glass heading --------------------------------------------- */
+
+@keyframes wave-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes liquid-drain {
+  0% {
+    height: 100%;
+  }
+  100% {
+    height: var(--liquid-rest, 22%);
+  }
+}
+
+.liquid-wave {
+  animation: wave-scroll 7s linear infinite;
+}
+
+.liquid-wave-slow {
+  animation: wave-scroll 11s linear infinite reverse;
+}
+
+.liquid-level {
+  height: 100%;
+  animation: liquid-drain 2.4s cubic-bezier(0.64, 0, 0.86, 0.32) 850ms 1 forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bubble,
+  .animate-float,
+  .animate-rise,
+  .animate-dot,
+  .animate-kenburns,
+  .liquid-wave,
+  .liquid-wave-slow,
+  .liquid-level {
+    animation: none !important;
+  }
+
+  .liquid-level {
+    height: var(--liquid-rest, 22%) !important;
+  }
+
+  .parallax-layer {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* AOS is disabled at init, but make sure nothing is left hidden. */
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
