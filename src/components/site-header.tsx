@@ -105,7 +105,7 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled
+        className={`fixed inset-x-0 top-0 z-50 w-full transition-all duration-300 ${scrolled
           ? "bg-white/90 backdrop-blur-md shadow-sm py-0"
           : "bg-transparent py-2"
           }`}

@@ -15,23 +15,27 @@ export function ScrollProvider() {
 
     // 1. Initialize Lenis smooth scroll with customized exponential momentum physics
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.8,
     });
     (window as any).__lenis = lenis;
 
     // Connect Lenis scroll updates directly to GSAP ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
+    lenis.on("scroll", () => {
+      ScrollTrigger.update();
+    });
 
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-
-    gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
 
     // 2. Cinematic Animations with GSAP ScrollTrigger
     const ctx = gsap.context(() => {
@@ -164,7 +168,7 @@ export function ScrollProvider() {
 
     return () => {
       ctx.revert();
-      gsap.ticker.remove(updateTicker);
+      cancelAnimationFrame(rafId);
       delete (window as any).__lenis;
       lenis.destroy();
     };
