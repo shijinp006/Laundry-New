@@ -49,8 +49,8 @@ function StackedCard({ service, priority }: { service: Service; priority: boolea
     >
       <div className="relative aspect-[16/10] shrink-0">
         <span
-          className={`absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-[10px] font-semibold backdrop-blur-sm ${
-            service.featured ? "bg-brand text-[#06213c]" : "bg-[#06192e]/80 text-brand"
+          className={`absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-[10px] font-semibold ${
+            service.featured ? "bg-brand text-[#06213c]" : "bg-[#06192e]/90 text-brand"
           }`}
         >
           {service.badge}
@@ -108,8 +108,8 @@ function HoverRevealCard({ service, priority }: { service: Service; priority: bo
     >
       {/* badge — always on top, identifies the card before any reveal */}
       <span
-        className={`absolute left-3 top-3 z-30 rounded-full px-2.5 py-1 text-[10px] font-semibold backdrop-blur-sm ${
-          service.featured ? "bg-brand text-[#06213c]" : "bg-[#06192e]/80 text-brand"
+        className={`absolute left-3 top-3 z-30 rounded-full px-2.5 py-1 text-[10px] font-semibold ${
+          service.featured ? "bg-brand text-[#06213c]" : "bg-[#06192e]/90 text-brand"
         }`}
       >
         {service.badge}

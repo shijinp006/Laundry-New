@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logoIcon from "@/assets/img/logo-icon.png";
+import logoIcon from "@/assets/img/logo-icon.webp";
 
 type IconProps = { className?: string };
 

@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { sectionX } from "@/lib/layout";
 import { Leaf } from "@/components/icons";
-import { useParallax } from "@/lib/use-parallax";
-import aboutPhoto from "@/assets/img/about-team.jpg";
+import aboutPhoto from "@/assets/img/about-team.webp";
 
 const stats = [
   { value: "2019", label: "Year Founded" },
@@ -14,8 +13,6 @@ const stats = [
 ];
 
 export function About() {
-  const parallaxRef = useParallax<HTMLDivElement>(24);
-
   return (
     <section
       id="about"
@@ -72,12 +69,12 @@ export function About() {
           data-aos-delay="120"
           className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-line bg-card sm:aspect-[4/3]"
         >
-          <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-[#06192e]/90 px-3 py-1.5 text-[10px] font-semibold text-brand backdrop-blur-sm md:left-4 md:top-4 md:text-[11px]">
+          <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-[#06192e]/90 px-3 py-1.5 text-[10px] font-semibold text-brand md:left-4 md:top-4 md:text-[11px]">
             Meet the Team
           </span>
 
-          {/* photo drifts slightly on scroll, and slowly zooms in place */}
-          <div ref={parallaxRef} className="parallax-layer absolute inset-[-8%]">
+          {/* photo slowly zooms in place */}
+          <div className="cinematic-image absolute inset-[-8%]">
             <Image
               src={aboutPhoto}
               alt="Three members of the Wash Zone Laundry team working together and laughing"

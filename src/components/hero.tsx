@@ -99,7 +99,7 @@ export function Hero() {
           loop
           playsInline
           preload="none"
-          poster="/video/hero-bg-poster.jpg"
+          poster="/video/hero-bg-poster.webp"
           className="size-full object-cover lg:hidden"
         >
           {videoSrc && <source src={videoSrc} type="video/mp4" />}
@@ -112,7 +112,7 @@ export function Hero() {
           loop
           playsInline
           preload="none"
-          poster="/video/hero-bg-poster.jpg"
+          poster="/video/hero-bg-poster.webp"
           className="hidden size-full object-cover lg:block"
         >
           {videoSrc && <source src={videoSrc} type="video/mp4" />}

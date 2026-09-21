@@ -332,12 +332,6 @@ h6,
   animation: ken-burns 18s ease-in-out infinite;
 }
 
-.parallax-layer {
-  transform: translateY(var(--parallax-y, 0px));
-  transition: transform 120ms linear;
-  will-change: transform;
-}
-
 /* ---- liquid glass heading --------------------------------------------- */
 
 @keyframes wave-scroll {
@@ -388,11 +382,6 @@ h6,
 
   .liquid-level {
     height: var(--liquid-rest, 22%) !important;
-  }
-
-  .parallax-layer {
-    transform: none !important;
-    transition: none !important;
   }
 
   /* AOS is disabled at init, but make sure nothing is left hidden. */

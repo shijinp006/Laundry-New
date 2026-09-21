@@ -1,10 +1,10 @@
 import { sectionX } from "@/lib/layout";
 import { ServiceCard, type Service } from "@/components/service-card";
 import { ServicesCarousel } from "@/components/services-carousel";
-import washFoldPhoto from "@/assets/img/services/wash-fold.jpg";
-import dryCleaningPhoto from "@/assets/img/services/dry-cleaning.jpg";
-import beddingPhoto from "@/assets/img/services/bedding.jpg";
-import expressPhoto from "@/assets/img/services/express.jpg";
+import washFoldPhoto from "@/assets/img/services/wash-fold.webp";
+import dryCleaningPhoto from "@/assets/img/services/dry-cleaning.webp";
+import beddingPhoto from "@/assets/img/services/bedding.webp";
+import expressPhoto from "@/assets/img/services/express.webp";
 
 const services: Service[] = [
   {

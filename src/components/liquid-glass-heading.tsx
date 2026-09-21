@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
-import waveBg from "@/assets/img/hero-wave-bg.jpg";
+import waveBg from "@/assets/img/hero-wave-bg.webp";
 
 // Two copies of the same hump, side by side (viewBox is 2x the tile width) —
 // translating the whole thing by -50% loops it seamlessly.

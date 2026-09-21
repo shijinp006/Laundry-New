@@ -10,8 +10,24 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   const count = services.length;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const touchStartX = useRef<number | null>(null);
   const resumeTimer = useRef<number | undefined>(undefined);
+
+  // Autoplay only costs a frame (re-render + transform transition) while the
+  // carousel is actually on screen, so it never competes with page scroll
+  // elsewhere.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const goTo = useCallback(
     (next: number) => {
@@ -36,14 +52,14 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
 
   // autoplay
   useEffect(() => {
-    if (paused) return;
+    if (paused || !inView) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % count);
     }, AUTOPLAY_MS);
     return () => window.clearInterval(id);
-  }, [paused, count]);
+  }, [paused, inView, count]);
 
   useEffect(() => () => window.clearTimeout(resumeTimer.current), []);
 
@@ -60,14 +76,14 @@ export function ServicesCarousel({ services }: { services: Service[] }) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={rootRef}>
       <div
         className="overflow-hidden rounded-2xl"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
         <div
-          className="flex transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          className="flex will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {services.map((service, i) => (

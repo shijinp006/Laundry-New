@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { sectionX } from "@/lib/layout";
-import { CheckCircle, Sparkle } from "@/components/icons";
-import { useParallax } from "@/lib/use-parallax";
-import guaranteePhoto from "@/assets/img/guarantee-laundry-room.jpg";
+import { CheckCircle } from "@/components/icons";
+import guaranteePhoto from "@/assets/img/guarantee-laundry-room.webp";
 
 const points = [
   {
@@ -22,8 +21,6 @@ const points = [
 ];
 
 export function Guarantee() {
-  const parallaxRef = useParallax<HTMLDivElement>(24);
-
   return (
     <section
       className={`border-t border-line/50 bg-band pt-10 md:pt-12 lg:pt-14 pb-16 md:pb-20 lg:pb-24 ${sectionX}`}
@@ -34,13 +31,8 @@ export function Guarantee() {
           data-aos="fade-right"
           className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-line bg-card sm:aspect-[4/3]"
         >
-          <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-[#06192e]/90 px-3 py-1.5 text-[10px] font-semibold text-brand backdrop-blur-sm md:left-4 md:top-4 md:text-[11px]">
-            <Sparkle className="size-3.5" />
-            Egyptian Cotton Standard
-          </span>
-
-          {/* photo drifts slightly on scroll, and slowly zooms in place */}
-          <div ref={parallaxRef} className="parallax-layer absolute inset-[-8%]">
+          {/* photo slowly zooms in place */}
+          <div className="cinematic-image absolute inset-[-8%]">
             <Image
               src={guaranteePhoto}
               alt="A tidy laundry room with a washing machine, woven baskets, and a shelf of folded towels"
