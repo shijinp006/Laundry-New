@@ -26,7 +26,7 @@ export function Guarantee() {
 
   return (
     <section
-      className={`border-t border-line/50 bg-band py-16 md:py-20 lg:py-24 ${sectionX}`}
+      className={`border-t border-line/50 bg-band pt-10 md:pt-12 lg:pt-14 pb-16 md:pb-20 lg:pb-24 ${sectionX}`}
     >
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         {/* media */}

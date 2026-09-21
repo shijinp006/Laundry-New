@@ -57,7 +57,7 @@ export function Services() {
   return (
     <section
       id="services"
-      className={`bg-band py-16 md:py-20 lg:py-24 ${sectionX}`}
+      className={`bg-band pt-10 md:pt-12 lg:pt-14 pb-16 md:pb-20 lg:pb-24 ${sectionX}`}
     >
       <div className="text-center" data-aos="fade-up">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand md:text-xs">

@@ -27,8 +27,9 @@ export function ScrollProvider() {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       autoRaf: true,
-      anchors: { offset: HEADER_OFFSET },
+      anchors: false,
     });
+    (window as any).__lenis = lenis;
 
     // Lenis scrolls the real window, so AOS keeps getting native scroll
     // events. It only needs a nudge once layout has settled.
@@ -37,6 +38,7 @@ export function ScrollProvider() {
     const settle = window.setTimeout(refresh, 400);
 
     return () => {
+      delete (window as any).__lenis;
       window.clearTimeout(settle);
       window.removeEventListener("load", refresh);
       lenis.destroy();

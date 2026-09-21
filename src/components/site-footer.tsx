@@ -25,7 +25,7 @@ const socials = [
 
 export function SiteFooter() {
   return (
-    <footer id="contact" className={`bg-deep pb-6 pt-14 md:pt-16 lg:pt-20 ${sectionX}`}>
+    <footer id="contact" className={`bg-deep pb-6 pt-10 md:pt-12 lg:pt-14 ${sectionX}`}>
       <div
         data-aos="fade-up"
         className="grid grid-cols-2 gap-x-6 gap-y-10 sm:gap-x-8 md:gap-10 lg:grid-cols-[minmax(0,1.5fr)_repeat(4,minmax(0,1fr))]"

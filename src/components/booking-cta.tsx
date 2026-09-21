@@ -4,7 +4,7 @@ export function BookingCta() {
   return (
     <section
       id="book"
-      className={`relative isolate overflow-hidden border-t border-line/50 bg-navy py-16 text-center md:py-20 lg:py-24 ${sectionX}`}
+      className={`relative isolate overflow-hidden border-t border-line/50 bg-navy pt-10 md:pt-12 lg:pt-14 pb-16 text-center md:pb-20 lg:pb-24 ${sectionX}`}
     >
       <div
         aria-hidden

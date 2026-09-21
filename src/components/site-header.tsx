@@ -21,6 +21,18 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("top");
 
+  // Lock body scroll when full-screen mobile nav modal is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -34,7 +46,7 @@ export function SiteHeader() {
         return;
       }
 
-      // Check section currently in the primary view zone (35% of viewport height)
+      // Check section currently in primary viewing area
       const viewTarget = window.scrollY + window.innerHeight * 0.35;
       let currentSection = sections[0];
 
@@ -56,6 +68,43 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+    setOpen(false);
+
+    if (href === "#top") {
+      const lenis = (window as any).__lenis;
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.1 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      const lenis = (window as any).__lenis;
+      if (lenis) {
+        lenis.scrollTo(targetElement, { offset: -72, duration: 1.1 });
+      } else {
+        const headerHeight = 72;
+        const elementPosition =
+          targetElement.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - headerHeight;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
   return (
     <>
       <header
@@ -69,7 +118,11 @@ export function SiteHeader() {
           className={`flex h-16 items-center justify-between gap-2 sm:gap-4 lg:h-[72px] ${sectionX}`}
         >
           {/* Animated Logo */}
-          <a href="#top" className="group flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <a
+            href="#top"
+            onClick={(e) => handleNavClick(e, "#top")}
+            className="group flex items-center gap-2 sm:gap-2.5 shrink-0"
+          >
             <LogoMark className="size-8 sm:size-9 lg:size-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 text-brand" />
             <span className="flex flex-col leading-none">
               <span className="text-xs font-bold tracking-tight sm:text-sm lg:text-base whitespace-nowrap transition-colors duration-300 group-hover:text-brand">
@@ -89,6 +142,7 @@ export function SiteHeader() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={`group relative px-3 py-1.5 text-xs font-medium transition-all duration-300 rounded-full lg:text-sm ${
                     isActive
                       ? "text-brand font-semibold bg-brand/15 shadow-[0_0_18px_rgba(78,168,245,0.2)] scale-[1.03]"
@@ -153,48 +207,79 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-
-        {/* Animated Mobile Nav Drawer */}
-        <div
-          id="mobile-nav"
-          className={`overflow-hidden transition-all duration-300 ease-in-out lg:hidden ${
-            open
-              ? "max-h-96 opacity-100 border-t border-line bg-navy/95 backdrop-blur-lg pb-4 pt-1"
-              : "max-h-0 opacity-0"
-          } ${sectionX}`}
-        >
-          <ul className="flex flex-col">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace("#", "");
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={`block border-b border-line/70 py-3.5 text-base font-medium transition-colors duration-200 last:border-0 ${
-                      isActive ? "text-brand font-semibold" : "text-muted hover:text-ink"
-                    }`}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              );
-            })}
-            <li className="pt-3 md:hidden">
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen(false);
-                  setModalOpen(true);
-                }}
-                className="w-full rounded-lg border border-line py-2.5 text-center text-sm font-medium text-brand transition-colors hover:border-brand"
-              >
-                Select Pick Up Date
-              </button>
-            </li>
-          </ul>
-        </div>
       </header>
+
+      {/* Full-Screen Mobile Navigation Modal Overlay */}
+      <div
+        id="mobile-nav"
+        className={`fixed inset-0 z-[100] flex flex-col justify-between bg-navy/98 backdrop-blur-2xl px-6 pb-8 pt-4 transition-all duration-300 ease-in-out lg:hidden ${
+          open
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+      >
+        {/* Modal Top Header Bar */}
+        <div className="flex h-14 items-center justify-between border-b border-line/60 pb-3">
+          <a
+            href="#top"
+            onClick={(e) => handleNavClick(e, "#top")}
+            className="flex items-center gap-2"
+          >
+            <LogoMark className="size-8 text-brand" />
+            <span className="text-sm font-bold tracking-tight text-white">
+              Wash Zone Laundry
+            </span>
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close menu"
+            className="grid size-9 place-items-center rounded-xl border border-line text-ink transition-colors hover:border-brand hover:text-brand"
+          >
+            <span className="text-lg font-bold leading-none">✕</span>
+          </button>
+        </div>
+
+        {/* Modal Navigation Links List */}
+        <ul className="my-auto flex flex-col gap-2 overflow-y-auto py-4">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.replace("#", "");
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-lg font-semibold transition-all duration-300 ${
+                    isActive
+                      ? "bg-brand/15 text-brand shadow-[0_0_20px_rgba(78,168,245,0.2)]"
+                      : "text-muted hover:bg-white/[0.05] hover:text-ink"
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  {isActive && (
+                    <span className="size-2.5 rounded-full bg-brand shadow-[0_0_10px_#4ea8f5]" />
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Modal Bottom CTA */}
+        <div className="border-t border-line/60 pt-4 flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              setModalOpen(true);
+            }}
+            className="w-full rounded-xl bg-brand py-3.5 text-center text-sm font-bold text-[#06213c] shadow-lg shadow-brand/20 transition-all hover:bg-brand-strong active:scale-95"
+          >
+            Schedule Pickup Now
+          </button>
+        </div>
+      </div>
 
       <PickupDateModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>

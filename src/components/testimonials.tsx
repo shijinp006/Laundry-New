@@ -26,7 +26,7 @@ export function Testimonials() {
   return (
     <section
       id="reviews"
-      className={`border-t border-line/50 bg-band py-16 md:py-20 lg:py-24 ${sectionX}`}
+      className={`border-t border-line/50 bg-band pt-10 md:pt-12 lg:pt-14 pb-16 md:pb-20 lg:pb-24 ${sectionX}`}
     >
       <p
         data-aos="fade-up"
