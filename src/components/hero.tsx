@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { sectionX } from "@/lib/layout";
-import { Arrow, Calendar, CheckCircle, Leaf, Pin, Star } from "@/components/icons";
+import { Arrow, Calendar, Pin } from "@/components/icons";
 import { PickupDateModal } from "@/components/pickup-date-modal";
 
 const bubbles = [
@@ -74,12 +74,7 @@ export function Hero() {
 
         {/* Content container */}
         <div className="relative z-10 max-w-2xl lg:max-w-3xl" data-aos="fade-right">
-          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.04] px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-brand md:text-[11px]">
-            <Leaf className="size-3.5" />
-            Organic Cold-Water Care
-          </span>
-
-          <h1 className="mt-6 text-[2.1rem] font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-[3.4rem] xl:text-6xl">
+          <h1 className="text-[2.1rem] font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-[3.4rem] xl:text-6xl">
             Effortless Laundry &amp; Dry Cleaning{" "}
             <span className="text-brand-strong">Delivered to Your Door</span>
           </h1>
@@ -132,22 +127,6 @@ export function Hero() {
               <Arrow className="size-4 shrink-0" />
             </button>
           </form>
-
-          <div className="mt-6 flex flex-col gap-3 text-xs text-muted sm:flex-row sm:items-center sm:gap-6 md:text-sm">
-            <span className="flex items-center gap-2">
-              <span className="flex gap-0.5 text-brand" aria-label="Rated 4.9 out of 5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-3.5" />
-                ))}
-              </span>
-              <strong className="font-semibold text-ink">4.9/5</strong>
-              <span>(12,000+ happy clients)</span>
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle className="size-4 text-brand" />
-              100% Fabric Care Guarantee
-            </span>
-          </div>
         </div>
 
         {/* drifting bubbles */}
