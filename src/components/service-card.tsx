@@ -41,11 +41,7 @@ function StackedCard({ service, priority }: { service: Service; priority: boolea
 
   return (
     <div
-      className={`flex h-full flex-col overflow-hidden rounded-2xl border bg-card ${
-        service.featured
-          ? "border-brand shadow-[0_0_0_1px_rgba(78,168,245,0.35),0_24px_50px_-30px_rgba(78,168,245,0.7)]"
-          : "border-line"
-      }`}
+      className="flex h-full flex-col overflow-hidden rounded-2xl bg-card"
     >
       <div className="relative aspect-[16/10] shrink-0">
         <span
@@ -100,11 +96,7 @@ function HoverRevealCard({ service, priority }: { service: Service; priority: bo
   return (
     <div
       tabIndex={0}
-      className={`group relative isolate aspect-[4/5] cursor-pointer overflow-hidden rounded-2xl border outline-none transition-colors ${
-        service.featured
-          ? "border-brand shadow-[0_0_0_1px_rgba(78,168,245,0.35),0_24px_50px_-30px_rgba(78,168,245,0.7)]"
-          : "border-line hover:border-brand/60 focus-visible:border-brand/60"
-      }`}
+      className="group relative isolate aspect-[4/5] cursor-pointer overflow-hidden rounded-2xl outline-none"
     >
       {/* badge — always on top, identifies the card before any reveal */}
       <span
