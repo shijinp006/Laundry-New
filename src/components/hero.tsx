@@ -119,6 +119,16 @@ export function Hero() {
         </video>
       </div>
 
+      {/* Watermark cover – hides the sparkle icon baked into the bottom of the video */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-56"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(6,12,24,1) 0%, rgba(6,12,24,1) 50%, rgba(6,12,24,0.85) 65%, rgba(6,12,24,0.4) 80%, transparent 100%)",
+        }}
+      />
+
       {/* Backdrop Scrim / Overlay gradient to ensure text readability */}
       <div
         aria-hidden
