@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,6 +10,18 @@ import "lenis/dist/lenis.css";
 gsap.registerPlugin(ScrollTrigger);
 
 export function ScrollProvider() {
+  const pathname = usePathname();
+
+  // Lenis keeps its own scroll position across client-side navigations, so
+  // every new page must be sent back to the top explicitly (unless the URL
+  // targets a #section, which the browser/Next scrolls to itself).
+  useEffect(() => {
+    if (window.location.hash) return;
+    const lenis = (window as any).__lenis;
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
