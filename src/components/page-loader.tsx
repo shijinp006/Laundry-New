@@ -61,9 +61,6 @@ export function PageLoader() {
         <span className="absolute size-16 animate-spin rounded-full border-2 border-white/15 border-t-brand" />
         <LogoMark className="size-9" />
       </div>
-      <span className="font-display text-sm uppercase tracking-[0.2em] text-white/80">
-        Wash Zone Laundry
-      </span>
     </div>
   );
 }

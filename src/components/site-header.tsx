@@ -12,11 +12,12 @@ const navLinks = [
   { href: "#contact", label: "Contact", icon: PhoneIcon },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("top");
+  const [scrolledState, setScrolled] = useState(false);
+  const scrolled = solid || scrolledState;
+  const [activeSection, setActiveSection] = useState(solid ? "services" : "top");
 
   // Lock body scroll when full-screen mobile nav modal is open
   useEffect(() => {
@@ -31,6 +32,7 @@ export function SiteHeader() {
   }, [open]);
 
   useEffect(() => {
+    if (solid) return;
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
@@ -63,12 +65,13 @@ export function SiteHeader() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [solid]);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
+    if (solid) return; // off the landing page: let the browser go to "/#section"
     e.preventDefault();
     setOpen(false);
 
@@ -115,7 +118,7 @@ export function SiteHeader() {
         >
           {/* Animated Logo */}
           <a
-            href="#top"
+            href={solid ? "/" : "#top"}
             onClick={(e) => handleNavClick(e, "#top")}
             className="group flex items-center gap-2 sm:gap-2.5 shrink-0"
           >
@@ -123,7 +126,7 @@ export function SiteHeader() {
             <span className="flex flex-col leading-none">
               <span className={`text-xs font-bold tracking-tight sm:text-sm lg:text-base whitespace-nowrap transition-colors duration-300 ${scrolled ? "text-slate-900 group-hover:text-brand" : "text-white group-hover:text-brand"
                 }`}>
-                Wash Zone Laundry
+                Wash Zone
               </span>
               <span className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-brand sm:mt-1 sm:text-[9px] sm:tracking-[0.18em] lg:text-[10px] whitespace-nowrap">
                 Clean · Green · Premium
@@ -138,7 +141,7 @@ export function SiteHeader() {
               return (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={solid ? `/${link.href}` : link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`group relative px-3 py-1 text-xs font-semibold transition-colors duration-300 lg:text-sm ${isActive
                     ? "text-brand"
@@ -217,13 +220,13 @@ export function SiteHeader() {
         {/* Modal Top Header Bar */}
         <div className="flex h-14 items-center justify-between border-b border-slate-200/80 pb-3">
           <a
-            href="#top"
+            href={solid ? "/" : "#top"}
             onClick={(e) => handleNavClick(e, "#top")}
             className="flex items-center gap-2"
           >
             <LogoMark className="size-8 text-brand" />
             <span className="text-sm font-bold tracking-tight text-slate-900">
-              Wash Zone Laundry
+              Wash Zone
             </span>
           </a>
 
@@ -245,7 +248,7 @@ export function SiteHeader() {
             return (
               <li key={link.href}>
                 <a
-                  href={link.href}
+                  href={solid ? `/${link.href}` : link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`flex items-center justify-between rounded-xl px-3 py-3.5 text-sm font-semibold transition-colors duration-200 ${isActive
                     ? "bg-brand/10 text-brand font-bold"

@@ -1,57 +1,9 @@
+import Link from "next/link";
 import { sectionX } from "@/lib/layout";
-import { ServiceCard, type Service } from "@/components/service-card";
+import { ServiceCard } from "@/components/service-card";
 import { ServicesCarousel } from "@/components/services-carousel";
-import washFoldPhoto from "@/assets/img/services/wash-fold.webp";
-import dryCleaningPhoto from "@/assets/img/services/dry-cleaning.webp";
-import beddingPhoto from "@/assets/img/services/bedding.webp";
-import expressPhoto from "@/assets/img/services/express.webp";
-
-const services: Service[] = [
-  {
-    icon: "shirt",
-    image: washFoldPhoto,
-    title: "Wash & Fold",
-    badge: "Bestseller",
-    body: "Sorted by color, gently washed with hypoallergenic detergents, dried at low temps, and precision-folded.",
-    price: "$1.99",
-    unit: "/ lb",
-    cta: "Add",
-    featured: false,
-  },
-  {
-    icon: "leaf",
-    image: dryCleaningPhoto,
-    title: "Eco Dry Cleaning",
-    badge: "Solvent-Free",
-    body: "Non-toxic, odor-free hydrocarbon gentle care. Ideal for blazers, cashmere sweaters, and evening dresses.",
-    price: "$4.50",
-    unit: "/ item",
-    cta: "Add",
-    featured: false,
-  },
-  {
-    icon: "bed",
-    image: beddingPhoto,
-    title: "Bedding Spa",
-    badge: "Down Sanitized",
-    body: "Deep thermal sanitization for comforters, duvet covers, and goose-down pillows with allergen extraction.",
-    price: "$18.00",
-    unit: "/ set",
-    cta: "Add",
-    featured: false,
-  },
-  {
-    icon: "bolt",
-    image: expressPhoto,
-    title: "Express 12h Rush",
-    badge: "Priority",
-    body: "Morning pickup by 8:00 AM, back on your hanger before dinner at 8:00 PM. Guaranteed rapid service.",
-    price: "+35%",
-    unit: "flat surcharge",
-    cta: "Reserve",
-    featured: true,
-  },
-];
+import { services } from "@/lib/services-data";
+import { Arrow } from "@/components/icons";
 
 export function Services() {
   return (
@@ -88,6 +40,16 @@ export function Services() {
           </li>
         ))}
       </ul>
+
+      <div className="mt-10 text-center md:mt-12" data-aos="fade-up">
+        <Link
+          href="/services"
+          className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand/25 transition-colors hover:bg-brand-strong md:text-base"
+        >
+          View Services
+          <Arrow className="size-4" />
+        </Link>
+      </div>
     </section>
   );
 }

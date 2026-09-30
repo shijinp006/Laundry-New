@@ -3,6 +3,7 @@ import { Outfit, Plus_Jakarta_Sans, Geist_Mono, Russo_One } from "next/font/goog
 import { ScrollProvider } from "@/components/scroll-provider";
 import { PageLoader } from "@/components/page-loader";
 import { FloatingActions } from "@/components/floating-actions";
+import { Toaster } from "@/components/toaster";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <PageLoader />
         <ScrollProvider />
         <FloatingActions />
+        <Toaster />
         {children}
       </body>
     </html>
