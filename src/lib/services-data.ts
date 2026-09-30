@@ -8,7 +8,7 @@ import comforterPhoto from "@/assets/img/services/comforter.jpg";
 import knitwearPhoto from "@/assets/img/services/knitwear.jpg";
 import delicatesPhoto from "@/assets/img/services/delicates.jpg";
 import steamingPhoto from "@/assets/img/services/steaming.jpg";
-import pillowPhoto from "@/assets/img/services/pillow.jpg";
+import shoeCarePhoto from "@/assets/img/services/shoe-care.jpg";
 import deliveryPhoto from "@/assets/img/services/delivery.jpg";
 import stainPhoto from "@/assets/img/services/stain.jpg";
 import monthlyPhoto from "@/assets/img/services/monthly.jpg";
@@ -78,7 +78,7 @@ export const allServices: Service[] = [
   more("leaf", knitwearPhoto, "Knitwear Care", "Gentle", "Shape-safe cleaning for wool, cashmere and chunky knits, dried flat to prevent stretching.", "$7.50", "/ item"),
   more("leaf", delicatesPhoto, "Delicates & Blouses", "Delicate", "Hand-finished care for lace, silk and embroidered pieces, returned on hangers.", "$6.00", "/ item"),
   more("shirt", steamingPhoto, "Wardrobe Steaming", "Refresh", "Quick steam treatment removes wrinkles and odors from tees, dresses and jackets.", "$2.50", "/ item"),
-  more("bed", pillowPhoto, "Pillow Refresh", "Allergen Free", "Hot-wash sanitizing and fluff drying restore loft to down and fiber pillows.", "$8.00", "/ pillow"),
+  more("shirt", shoeCarePhoto, "Shoe & Sneaker Care", "Fresh Kicks", "Hand scrubbed with gentle foam and soft brushes: professional deep cleaning for suede, leather and canvas sneakers.", "$14.00", "/ pair"),
   more("bolt", deliveryPhoto, "Same-Day Delivery", "Fast", "Order before noon and get clean clothes back the same evening.", "+25%", "flat surcharge"),
   more("leaf", stainPhoto, "Stain Removal Treatment", "Add-on", "Targeted pre-treatment for wine, oil, ink and sweat stains before any wash.", "$3.00", "/ item"),
   more("shirt", monthlyPhoto, "Monthly Laundry Plan", "Best Value", "Scheduled weekly pickups with a fixed monthly price for busy households.", "$49.00", "/ month"),
