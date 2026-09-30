@@ -2,7 +2,6 @@ import type { Service } from "@/components/service-card";
 import washFoldPhoto from "@/assets/img/services/wash-fold.webp";
 import dryCleaningPhoto from "@/assets/img/services/dry-cleaning.webp";
 import beddingPhoto from "@/assets/img/services/bedding.webp";
-import expressPhoto from "@/assets/img/services/express.webp";
 import shirtPressPhoto from "@/assets/img/services/shirt-press.jpg";
 import suitCarePhoto from "@/assets/img/services/suit-care.jpg";
 import comforterPhoto from "@/assets/img/services/comforter.jpg";
@@ -49,15 +48,15 @@ export const services: Service[] = [
     featured: false,
   },
   {
-    icon: "bolt",
-    image: expressPhoto,
-    title: "Express 12h Rush",
-    badge: "Priority",
-    body: "Morning pickup by 8:00 AM, back on your hanger before dinner at 8:00 PM. Guaranteed rapid service.",
-    price: "+35%",
-    unit: "flat surcharge",
-    cta: "Reserve",
-    featured: true,
+    icon: "shirt",
+    image: shirtPressPhoto,
+    title: "Shirt Press & Iron",
+    badge: "Crisp Finish",
+    body: "Steam-pressed collars and cuffs, hung on hangers and ready for the office.",
+    price: "$2.25",
+    unit: "/ shirt",
+    cta: "Add",
+    featured: false,
   },
 ];
 
@@ -74,7 +73,6 @@ const more = (
 /** Full catalog for the services page (the landing page shows only the first four). */
 export const allServices: Service[] = [
   ...services,
-  more("shirt", shirtPressPhoto, "Shirt Press & Iron", "Crisp Finish", "Steam-pressed collars and cuffs, hung on hangers and ready for the office.", "$2.25", "/ shirt"),
   more("leaf", suitCarePhoto, "Jacket & Coat Care", "Tailored", "Careful cleaning and shaping for jackets, blazers and coats with a structured press.", "$12.00", "/ item"),
   more("bed", comforterPhoto, "Comforter Cleaning", "Deep Clean", "Oversized machines lift dust, dander and odors from king and queen comforters.", "$24.00", "/ item"),
   more("leaf", knitwearPhoto, "Knitwear Care", "Gentle", "Shape-safe cleaning for wool, cashmere and chunky knits, dried flat to prevent stretching.", "$7.50", "/ item"),
@@ -85,3 +83,8 @@ export const allServices: Service[] = [
   more("leaf", stainPhoto, "Stain Removal Treatment", "Add-on", "Targeted pre-treatment for wine, oil, ink and sweat stains before any wash.", "$3.00", "/ item"),
   more("shirt", monthlyPhoto, "Monthly Laundry Plan", "Best Value", "Scheduled weekly pickups with a fixed monthly price for busy households.", "$49.00", "/ month"),
 ];
+
+export const slugify = (title: string) =>
+  title.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+export const getService = (slug: string) => allServices.find((s) => slugify(s.title) === slug);

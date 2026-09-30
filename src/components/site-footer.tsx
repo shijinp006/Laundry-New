@@ -67,14 +67,14 @@ export function SiteFooter() {
           </div>
 
           {/* Navigation & Hours Columns Container - flex flex-col on mobile to prevent any text overlap */}
-          <div className="flex flex-col items-center gap-8 sm:grid sm:grid-cols-2 lg:grid-cols-4 w-full justify-items-center">
+          <div className="grid w-full grid-cols-2 gap-x-4 gap-y-8 sm:gap-8 lg:grid-cols-4 lg:justify-items-center">
             {/* Navigation Columns */}
             {columns.map((col) => (
-              <div key={col.title} className="flex flex-col items-center text-center sm:items-start sm:text-left">
+              <div key={col.title} className="flex flex-col items-start text-left">
                 <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm whitespace-nowrap">
                   {col.title}
                 </h3>
-                <ul className="mt-3 flex flex-col items-center gap-2.5 sm:items-start">
+                <ul className="mt-3 flex flex-col items-start gap-2.5">
                   {col.links.map((link) => (
                     <li key={link}>
                       <a
@@ -90,15 +90,15 @@ export function SiteFooter() {
             ))}
 
             {/* Service Hours Column */}
-            <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+            <div className="flex flex-col items-start text-left">
               <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm whitespace-nowrap">
                 Service Hours
               </h3>
-              <ul className="mt-3 flex flex-col items-center gap-2.5 text-xs text-slate-300 md:text-sm sm:items-start">
-                <li className="whitespace-nowrap">Mon – Sat: 7am – 10pm</li>
-                <li className="whitespace-nowrap">Sunday: 8am – 8pm</li>
-                <li className="pt-1 whitespace-nowrap">
-                  <a href="tel:+18005553737" className="font-semibold text-brand hover:underline whitespace-nowrap">
+              <ul className="mt-3 flex flex-col items-start gap-2.5 text-xs text-slate-300 md:text-sm">
+                <li className="sm:whitespace-nowrap">Mon – Sat: 7am – 10pm</li>
+                <li className="sm:whitespace-nowrap">Sunday: 8am – 8pm</li>
+                <li className="pt-1 sm:whitespace-nowrap">
+                  <a href="tel:+18005553737" className="font-semibold text-brand hover:underline sm:whitespace-nowrap">
                     Toll Free: 1-800-555-FRESH
                   </a>
                 </li>

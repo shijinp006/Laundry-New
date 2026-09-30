@@ -39,7 +39,7 @@ export default function ServicesPage() {
           <div className="mt-12 text-center">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
+              className="inline-flex items-center gap-2 rounded-xl border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
             >
               <Arrow className="size-4 rotate-180" />
               Back to Home

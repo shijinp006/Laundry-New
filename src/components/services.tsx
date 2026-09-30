@@ -44,7 +44,7 @@ export function Services() {
       <div className="mt-10 text-center md:mt-12" data-aos="fade-up">
         <Link
           href="/services"
-          className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand/25 transition-colors hover:bg-brand-strong md:text-base"
+          className="inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand/25 transition-colors hover:bg-brand-strong md:text-base"
         >
           View Services
           <Arrow className="size-4" />
