@@ -30,16 +30,16 @@ function PhoneFloatIcon({ className = "size-5" }: { className?: string }) {
 /* ── Main component ──────────────────────────────────────────────────── */
 export function FloatingActions() {
   return (
-    <div className="fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 md:right-5 lg:right-6">
+    <div className="fixed right-2.5 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-2.5 sm:right-4 sm:gap-3 md:right-5 lg:right-6">
       {/* WhatsApp */}
       <a
         href="https://wa.me/919876543210"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="floating-action-btn group bg-[#25D366] text-white shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_28px_rgba(37,211,102,0.6)]"
+        className="floating-action-btn group bg-[#25D366] text-white shadow-[0_4px_16px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_28px_rgba(37,211,102,0.6)]"
       >
-        <WhatsAppIcon className="size-[22px] transition-transform duration-300 group-hover:scale-110" />
+        <WhatsAppIcon className="size-[17px] sm:size-[22px] transition-transform duration-300 group-hover:scale-110" />
         <span className="floating-action-label bg-[#25D366]">WhatsApp</span>
       </a>
 
@@ -49,9 +49,9 @@ export function FloatingActions() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Follow on Instagram"
-        className="floating-action-btn group bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#bc1888] text-white shadow-[0_4px_20px_rgba(188,24,136,0.35)] hover:shadow-[0_6px_28px_rgba(188,24,136,0.55)]"
+        className="floating-action-btn group bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#bc1888] text-white shadow-[0_4px_16px_rgba(188,24,136,0.35)] hover:shadow-[0_6px_28px_rgba(188,24,136,0.55)]"
       >
-        <InstagramIcon className="size-[22px] transition-transform duration-300 group-hover:scale-110" />
+        <InstagramIcon className="size-[17px] sm:size-[22px] transition-transform duration-300 group-hover:scale-110" />
         <span className="floating-action-label bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#bc1888]">Instagram</span>
       </a>
 
@@ -59,9 +59,9 @@ export function FloatingActions() {
       <a
         href="tel:+919876543210"
         aria-label="Call us"
-        className="floating-action-btn group bg-brand text-white shadow-[0_4px_20px_rgba(2,132,199,0.4)] hover:shadow-[0_6px_28px_rgba(2,132,199,0.6)]"
+        className="floating-action-btn group bg-brand text-white shadow-[0_4px_16px_rgba(2,132,199,0.4)] hover:shadow-[0_6px_28px_rgba(2,132,199,0.6)]"
       >
-        <PhoneFloatIcon className="size-[22px] transition-transform duration-300 group-hover:scale-110" />
+        <PhoneFloatIcon className="size-[17px] sm:size-[22px] transition-transform duration-300 group-hover:scale-110" />
         <span className="floating-action-label bg-brand">Call Us</span>
       </a>
     </div>

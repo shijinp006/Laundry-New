@@ -398,12 +398,19 @@ h6,
   position: relative;
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   border-radius: 9999px;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.3s ease;
   animation: fab-pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@media (min-width: 640px) {
+  .floating-action-btn {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .floating-action-btn:nth-child(1) { animation-delay: 0.6s; }

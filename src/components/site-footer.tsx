@@ -25,94 +25,103 @@ const socials = [
 
 export function SiteFooter() {
   return (
-    <footer id="contact" className={`bg-deep pb-6 pt-10 md:pt-12 lg:pt-14 ${sectionX}`}>
-      <div
-        data-aos="fade-up"
-        className="grid grid-cols-2 gap-x-6 gap-y-10 sm:gap-x-8 md:gap-10 lg:grid-cols-[minmax(0,1.5fr)_repeat(4,minmax(0,1fr))]"
-      >
-        <div className="col-span-2 lg:col-span-1">
-          <div className="flex items-center gap-2.5">
-            <LogoMark className="size-9 text-brand" />
-            <span className="flex flex-col leading-none">
-              <span className="text-sm font-bold tracking-tight text-white md:text-base">
-                Wash Zone Laundry
+    <footer id="contact" className={`bg-deep pb-8 pt-12 md:pt-16 lg:pt-20 ${sectionX}`}>
+      <div className="mx-auto max-w-7xl">
+        <div
+          data-aos="fade-up"
+          className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between"
+        >
+          {/* Brand Info */}
+          <div className="flex flex-col items-center text-center lg:max-w-xs lg:items-start lg:text-left shrink-0">
+            <div className="flex items-center gap-2.5">
+              <LogoMark className="size-9 text-brand" />
+              <span className="flex flex-col leading-none">
+                <span className="text-sm font-bold tracking-tight text-white md:text-base whitespace-nowrap">
+                  Wash Zone Laundry
+                </span>
+                <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-brand whitespace-nowrap">
+                  Clean · Green · Premium
+                </span>
               </span>
-              <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-brand">
-                Clean · Green · Premium
-              </span>
-            </span>
-          </div>
-          <p className="mt-4 max-w-prose text-xs leading-relaxed text-slate-300 md:text-sm">
-            Elevating modern wardrobe wellness. Eco-friendly cleaning,
-            professional fold quality, and zero-friction scheduling from your
-            smartphone.
-          </p>
-          <ul className="mt-5 flex gap-3">
-            {socials.map((s) => (
-              <li key={s.label}>
-                <a
-                  href="#"
-                  aria-label={s.label}
-                  className="grid size-8 place-items-center rounded-lg border border-slate-700 text-slate-300 transition-colors hover:border-brand hover:text-brand"
-                >
-                  <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden>
-                    <path d={s.path} />
-                  </svg>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {columns.map((col) => (
-          <div key={col.title}>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm">
-              {col.title}
-            </h3>
-            <ul className="mt-4 flex flex-col gap-2.5">
-              {col.links.map((link) => (
-                <li key={link}>
+            </div>
+            <p className="mt-4 max-w-prose text-xs leading-relaxed text-slate-300 md:text-sm">
+              Elevating modern wardrobe wellness. Eco-friendly cleaning,
+              professional fold quality, and zero-friction scheduling from your
+              smartphone.
+            </p>
+            <ul className="mt-5 flex justify-center gap-3 w-full lg:justify-start">
+              {socials.map((s) => (
+                <li key={s.label}>
                   <a
                     href="#"
-                    className="text-xs text-slate-300 transition-colors hover:text-brand md:text-sm"
+                    aria-label={s.label}
+                    className="grid size-9 place-items-center rounded-xl border border-slate-700 bg-slate-900/50 text-slate-300 transition-all hover:border-brand hover:bg-brand/10 hover:text-brand"
                   >
-                    {link}
+                    <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden>
+                      <path d={s.path} />
+                    </svg>
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-        ))}
 
-        <div>
-          <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm">
-            Service Hours
-          </h3>
-          <ul className="mt-4 flex flex-col gap-2.5 text-xs text-slate-300 md:text-sm">
-            <li>Mon – Sat: 7am – 10pm</li>
-            <li>Sunday: 8am – 8pm</li>
-            <li className="pt-1">
-              <a href="tel:+18005553737" className="font-semibold text-brand">
-                Toll Free: 1-800-555-FRESH
-              </a>
-            </li>
-          </ul>
+          {/* Navigation & Hours Columns Container - flex flex-col on mobile to prevent any text overlap */}
+          <div className="flex flex-col items-center gap-8 sm:grid sm:grid-cols-2 lg:grid-cols-4 w-full justify-items-center">
+            {/* Navigation Columns */}
+            {columns.map((col) => (
+              <div key={col.title} className="flex flex-col items-center text-center sm:items-start sm:text-left">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm whitespace-nowrap">
+                  {col.title}
+                </h3>
+                <ul className="mt-3 flex flex-col items-center gap-2.5 sm:items-start">
+                  {col.links.map((link) => (
+                    <li key={link}>
+                      <a
+                        href="#"
+                        className="text-xs text-slate-300 transition-colors hover:text-brand md:text-sm whitespace-nowrap"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+
+            {/* Service Hours Column */}
+            <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white md:text-sm whitespace-nowrap">
+                Service Hours
+              </h3>
+              <ul className="mt-3 flex flex-col items-center gap-2.5 text-xs text-slate-300 md:text-sm sm:items-start">
+                <li className="whitespace-nowrap">Mon – Sat: 7am – 10pm</li>
+                <li className="whitespace-nowrap">Sunday: 8am – 8pm</li>
+                <li className="pt-1 whitespace-nowrap">
+                  <a href="tel:+18005553737" className="font-semibold text-brand hover:underline whitespace-nowrap">
+                    Toll Free: 1-800-555-FRESH
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="mt-12 flex flex-col gap-3 border-t border-slate-800 pt-6 md:flex-row md:items-center md:justify-between">
-        <p className="text-[11px] text-slate-400 md:text-xs">
-          © {new Date().getFullYear()} Wash Zone Laundry Inc. All rights
-          reserved. Pristine garment wellness.
-        </p>
-        <p className="flex gap-5 text-[11px] text-slate-400 md:text-xs">
-          <a href="#" className="transition-colors hover:text-brand">
-            Privacy Policy
-          </a>
-          <a href="#" className="transition-colors hover:text-brand">
-            Terms of Service
-          </a>
-        </p>
+        {/* Bottom Bar */}
+        <div className="mt-12 flex flex-col items-center justify-center gap-3 border-t border-slate-800/80 pt-6 text-center md:flex-row md:justify-between">
+          <p className="text-[11px] text-slate-400 md:text-xs">
+            © {new Date().getFullYear()} Wash Zone Laundry Inc. All rights
+            reserved. Pristine garment wellness.
+          </p>
+          <p className="flex justify-center gap-5 text-[11px] text-slate-400 md:text-xs whitespace-nowrap">
+            <a href="#" className="transition-colors hover:text-brand whitespace-nowrap">
+              Privacy Policy
+            </a>
+            <a href="#" className="transition-colors hover:text-brand whitespace-nowrap">
+              Terms of Service
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

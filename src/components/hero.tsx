@@ -88,7 +88,7 @@ export function Hero() {
     <section
       id="top"
       ref={sectionRef}
-      className={`relative isolate flex min-h-screen flex-col justify-end overflow-hidden bg-slate-50 py-10 pb-20 lg:justify-center lg:pb-10 ${sectionX}`}
+      className={`relative isolate flex min-h-screen flex-col justify-center overflow-hidden bg-slate-950 py-20 lg:py-24 ${sectionX}`}
     >
       {/* Full-bleed background video container for section */}
       <div ref={videoWrapRef} aria-hidden className="absolute inset-0 -z-20 overflow-hidden">
@@ -119,45 +119,45 @@ export function Hero() {
         </video>
       </div>
 
-      {/* Watermark cover – hides the sparkle icon baked into the bottom of the video */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-56"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(6,12,24,1) 0%, rgba(6,12,24,1) 50%, rgba(6,12,24,0.85) 65%, rgba(6,12,24,0.4) 80%, transparent 100%)",
-        }}
-      />
-
       {/* Backdrop Scrim / Overlay gradient to ensure text readability */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950/85 via-slate-950/65 to-slate-950/35 lg:from-slate-950/80 lg:via-slate-950/55 lg:to-slate-950/25"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 lg:from-slate-950/85 lg:via-slate-950/60 lg:to-slate-950/30"
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(2,132,199,0.18),transparent_70%)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_15%_30%,rgba(2,132,199,0.22),transparent_70%)]"
       />
 
-      {/* Content container */}
-      <div className="relative z-10 max-w-2xl lg:max-w-3xl">
-        <h1 className="font-display text-[2.1rem] font-bold uppercase leading-[1.1] tracking-tight text-white md:text-5xl lg:text-[3.4rem] xl:text-6xl">
-          <span className="block overflow-hidden">
+      {/* Watermark cover – hides the sparkle icon baked into the bottom of the video */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 left-0 right-0 -z-10 h-36"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(6,12,24,0.95) 0%, rgba(6,12,24,0.6) 60%, transparent 100%)",
+        }}
+      />
+
+      {/* Content container - z-30 ensures text is always in front of all overlays */}
+      <div className="relative z-30 max-w-2xl pt-14 sm:pt-0 lg:max-w-3xl">
+        <h1 className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[3.4rem] xl:text-6xl font-bold uppercase leading-[1.15] tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+          <span className="block overflow-hidden py-1">
             <span ref={lineOneRef} className="glass-text block">
               Effortless Laundry
             </span>
           </span>
-          <span className="block overflow-hidden">
+          <span className="block overflow-hidden py-1">
             <span ref={lineTwoRef} className="glass-text block">
               &amp; Dry Cleaning
             </span>
           </span>
-          <span className="block overflow-hidden">
+          <span className="block overflow-hidden py-1">
             <span ref={lineThreeRef} className="glass-text-brand block">
               Delivered to
             </span>
           </span>
-          <span className="block overflow-hidden">
+          <span className="block overflow-hidden py-1">
             <span ref={lineFourRef} className="glass-text-brand block">
               Your Door
             </span>
