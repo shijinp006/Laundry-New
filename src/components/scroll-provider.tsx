@@ -50,7 +50,19 @@ export function ScrollProvider() {
     }
     rafId = requestAnimationFrame(raf);
 
-    // 2. Cinematic Animations with GSAP ScrollTrigger
+    return () => {
+      cancelAnimationFrame(rafId);
+      delete (window as any).__lenis;
+      lenis.destroy();
+    };
+  }, []);
+
+  // 2. Cinematic zoom-in reveals with GSAP ScrollTrigger. Re-bound on every
+  // route change so each page (services, product, ...) gets them, not just
+  // the page that was open when the app first loaded.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const ctx = gsap.context(() => {
       // A. Text & Heading Line Reveals ([data-aos="fade-up"], [data-gsap="fade-up"])
       const fadeUpElements = document.querySelectorAll('[data-aos="fade-up"], [data-gsap="fade-up"]');
@@ -58,9 +70,9 @@ export function ScrollProvider() {
         gsap.fromTo(
           el,
           {
-            y: 45,
+            y: 40,
             opacity: 0,
-            scale: 0.98,
+            scale: 0.9,
           },
           {
             y: 0,
@@ -157,7 +169,7 @@ export function ScrollProvider() {
             y: 45,
             opacity: 0,
             rotateX: 6,
-            scale: 0.96,
+            scale: 0.88,
           },
           {
             y: 0,
@@ -179,13 +191,8 @@ export function ScrollProvider() {
 
     ScrollTrigger.refresh();
 
-    return () => {
-      ctx.revert();
-      cancelAnimationFrame(rafId);
-      delete (window as any).__lenis;
-      lenis.destroy();
-    };
-  }, []);
+    return () => ctx.revert();
+  }, [pathname]);
 
   return null;
 }

@@ -46,7 +46,7 @@ export default async function ServicePage({ params }: Props) {
           </nav>
 
           <div className="grid gap-8 md:grid-cols-2 md:items-center lg:gap-14">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-line shadow-sm md:aspect-square lg:aspect-[4/3]">
+            <div data-aos="fade-up" className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-line shadow-sm md:aspect-square lg:aspect-[4/3]">
               <Image
                 src={service.image}
                 alt={service.title}
@@ -58,7 +58,7 @@ export default async function ServicePage({ params }: Props) {
               />
             </div>
 
-            <div>
+            <div data-aos="fade-up" data-aos-delay="100">
               <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
                 {service.title}
               </h1>
@@ -98,10 +98,10 @@ export default async function ServicePage({ params }: Props) {
         </section>
 
         <section className={`border-t border-line pb-16 pt-10 md:pb-20 lg:pb-24 ${sectionX}`}>
-          <h2 className="text-xl font-bold text-ink md:text-2xl">You may also like</h2>
+          <h2 data-aos="fade-up" className="text-xl font-bold text-ink md:text-2xl">You may also like</h2>
           <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4 lg:gap-6">
             {related.map((s) => (
-              <li key={s.title}>
+              <li key={s.title} data-aos="fade-up">
                 <Link
                   href={`/services/${slugify(s.title)}`}
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10"

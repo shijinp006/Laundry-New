@@ -19,7 +19,7 @@ export default function ServicesPage() {
       <SiteHeader solid />
       <main className="flex-1 bg-white">
         <section className={`pb-16 pt-28 md:pb-20 md:pt-32 lg:pb-24 lg:pt-36 ${sectionX}`}>
-          <div className="mx-auto max-w-2xl text-center">
+          <div className="mx-auto max-w-2xl text-center" data-aos="fade-up">
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand md:text-xs">
               Menu of Services
             </p>
@@ -36,7 +36,7 @@ export default function ServicesPage() {
             <ServicesCatalog services={allServices} />
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-12 text-center" data-aos="fade-up">
             <Link
               href="/"
               className="inline-flex items-center gap-2 rounded-xl border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
